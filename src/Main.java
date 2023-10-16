@@ -2,10 +2,12 @@ import java.util.Scanner;
 
 public class Main {
     private static final char[][] board = new char[3][3];
-
+    private static char currentPlayer = 'X';
     public static void main(String[] args) {
         initializeBoard();
         printBoard();
+        playGame();
+
     }
 
     private static void initializeBoard() {
@@ -27,4 +29,23 @@ public class Main {
             System.out.println("\n-------------");
         }
     }
-}
+    private static void playGame() {
+        boolean gameFinished = false;
+        char winner = ' ';
+
+        while (!gameFinished) {
+            int[] move = getPlayerMove();
+            int row = move[0];
+            int col = move[1];
+
+            if (isValidMove(row, col)) {
+                board[row][col] = currentPlayer;
+                printBoard();
+            }
+            if (checkForWin(row, col)) {
+                winner = currentPlayer;
+                gameFinished = true;
+            }
+        }
+    }
+        }
