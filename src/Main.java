@@ -38,14 +38,22 @@ public class Main {
             int row = move[0];
             int col = move[1];
 
-            if (isValidMove(row, col)) {
-                board[row][col] = currentPlayer;
-                printBoard();
-            }
             if (checkForWin(row, col)) {
                 winner = currentPlayer;
                 gameFinished = true;
             }
+            else if(isBoardFull()) {
+                gameFinished = true;
+            } else  {
+                currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+            }
+        } else (){
+            System.out.println("Invalid move. Try again.");
         }
     }
-        }
+        if (winner != ' ') {
+        System.out.println("Player " + winner + " wins!");
+    } else {
+        System.out.println("It's a draw!");
+    }
+}
