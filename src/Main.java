@@ -57,3 +57,21 @@ public class Main {
         System.out.println("It's a draw!");
     }
 }
+
+    private static int[] getPlayerMove() {
+        Scanner scanner = new Scanner(System.in);
+        int[] move = new int[2];
+        System.out.print("Player " + currentPlayer + ", enter the number of the cell you want to mark: ");
+        int selectedCell = scanner.nextInt();
+
+        if (selectedCell >= 1 && selectedCell <= 9) {
+            move[0] = (selectedCell - 1) / 3;
+            move[1] = (selectedCell - 1) % 3;
+        } else {
+            System.out.println("Invalid cell number. Try again.");
+            return getPlayerMove();
+        }
+
+        return move;
+    }
+}
