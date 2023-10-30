@@ -7,7 +7,6 @@ public class Main {
         initializeBoard();
         printBoard();
         playGame();
-
     }
 
     private static void initializeBoard() {
@@ -18,7 +17,7 @@ public class Main {
             }
         }
     }
-
+    //displays the grid
     private static void printBoard() {
         System.out.println("-------------");
         for (int i = 0; i < 3; i++) {
@@ -29,35 +28,39 @@ public class Main {
             System.out.println("\n-------------");
         }
     }
+    //manage the progress of the game
     private static void playGame() {
         boolean gameFinished = false;
-        char winner = ' ';
+           char winner = ' ';
 
         while (!gameFinished) {
+
             int[] move = getPlayerMove();
             int row = move[0];
             int col = move[1];
 
-            if (checkForWin(row, col)) {
-                winner = currentPlayer;
-                gameFinished = true;
+            if (isValidMove(row, col)) {
+                board[row][col] = currentPlayer;
+                printBoard();
+                if (checkForWin(row, col)) {
+                    winner = currentPlayer;
+                    gameFinished = true;
+                } else if (isBoardFull()) {
+                    gameFinished = true;
+                } else {
+                    currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+                }
+            } else {
+                System.out.println("Invalid move. Try again.");
             }
-            else if(isBoardFull()) {
-                gameFinished = true;
-            } else  {
-                currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
-            }
-        } else (){
-            System.out.println("Invalid move. Try again.");
+        }
+        if (winner != ' ') {
+            System.out.println("Player " + winner + " wins!");
+        } else {
+            System.out.println("It's a draw!");
         }
     }
-        if (winner != ' ') {
-        System.out.println("Player " + winner + " wins!");
-    } else {
-        System.out.println("It's a draw!");
-    }
-}
-
+    //
     private static int[] getPlayerMove() {
         Scanner scanner = new Scanner(System.in);
         int[] move = new int[2];
@@ -73,5 +76,17 @@ public class Main {
         }
 
         return move;
+    }
+    private static boolean isValidMove(int row, int col) {
+        return row >= 0 && row < 3 && col >= 0 && col < 3 && board[row][col] != 'X' && board[row][col] != 'O';
+    }
+
+
+    private static boolean checkForWin(int row, int col) {
+    }
+
+    private static boolean isBoardFull() {
+
+        return true;
     }
 }
